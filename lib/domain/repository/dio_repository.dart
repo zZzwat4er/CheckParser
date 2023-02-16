@@ -1,17 +1,26 @@
+import 'package:check_parser/ui/widgets/snack_bar.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../data/models/ip/ip.dart';
+
+part '../extentions/dio_extentions.dart';
 
 class DioRepository {
   final Dio _dio = Dio();
 
   Dio get dio => _dio;
 
-  DioRepository(IP ip) {
+  DioRepository(IP ip, Ref ref) {
     _dio.options.baseUrl = 'http://${ip.ip}:8000/';
     _dio.options.receiveTimeout = 10000;
     _dio.options.connectTimeout = 10000;
     _dio.options.headers['Content-Type'] = 'application/json';
+
+    _dio.interceptors.add(PrettyDioLogger());
+    _dio.interceptors.add(_TimeOutInterseptor(ref));
+    _dio.interceptors.add(_ServerErrorInterseptor(ref));
   }
 
   Future<Response<T>> sendRequest<T>({

@@ -10,6 +10,7 @@ import 'package:check_parser/domain/repository/shared_check_repository.dart';
 import 'package:check_parser/domain/repository/dio_repository.dart';
 import 'package:check_parser/domain/repository/unsorted_item_repository.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
@@ -19,10 +20,10 @@ import '../../data/models/debts/debts.dart';
 import '../../data/models/ip/ip.dart';
 import '../../data/repository/remote_check_repository.dart';
 import '../repository/checks_repository.dart';
-import '../router/router.dart';
+import '../router/router.dart' as app_router;
 
 class ServiceLocator {
-  static late final Provider<Router> router;
+  static late final Provider<app_router.Router> router;
   static late final Provider<RemoteCheckRepository> checkRepository;
   static late final Provider<RemoteDebtRepository> debtRepository;
   static late final Provider<RemoteItemRepository> itemRepository;
@@ -36,6 +37,9 @@ class ServiceLocator {
       ServerItem?> unsortedItem;
   static late final StateNotifierProvider<DebtsStateNotifier, Debts?> debts;
   static late final StateNotifierProvider<IpStateNotifier, IP?> ip;
+
+  static final Provider<GlobalKey<ScaffoldMessengerState>> massangerKey =
+      Provider((ref) => GlobalKey<ScaffoldMessengerState>());
 
   static Future<void> init() async {
     _initRouter();
@@ -69,14 +73,14 @@ class ServiceLocator {
   }
 
   static void _initRouter() {
-    router = Provider<Router>((ref) => Router());
+    router = Provider<app_router.Router>((ref) => app_router.Router());
   }
 
   static void _initDio() {
     dioRepository = Provider<DioRepository?>((ref) {
       final currentIP = ref.watch(ip);
       if (currentIP != null) {
-        return DioRepository(currentIP);
+        return DioRepository(currentIP, ref);
       }
       return null;
     });

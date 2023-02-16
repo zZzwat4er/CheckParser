@@ -13,6 +13,7 @@ class App extends StatelessWidget {
         builder: (_, ref, __) {
           final router = ref.read(ServiceLocator.router);
           return MaterialApp.router(
+            scaffoldMessengerKey: ref.read(ServiceLocator.massangerKey),
             title: 'App',
             routeInformationParser: router.informationParser,
             routerDelegate: router.deligate,
