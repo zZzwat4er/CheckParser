@@ -17,7 +17,7 @@ class DebtsList extends StatelessWidget {
             style: TextStyle(fontSize: 20, color: Colors.black),
             children: [
               TextSpan(text: 'Stepa: '),
-              TextSpan(text: debts.stepa.toString()),
+              TextSpan(text: '${debts.stepa / 100}'),
             ],
           ),
         ),
@@ -26,7 +26,7 @@ class DebtsList extends StatelessWidget {
             style: TextStyle(fontSize: 20, color: Colors.black),
             children: [
               TextSpan(text: 'Valentin: '),
-              TextSpan(text: debts.valentin.toString()),
+              TextSpan(text: '${debts.valentin / 100}'),
             ],
           ),
         ),
@@ -35,7 +35,7 @@ class DebtsList extends StatelessWidget {
             style: TextStyle(fontSize: 20, color: Colors.black),
             children: [
               TextSpan(text: 'Dima: '),
-              TextSpan(text: debts.dima.toString()),
+              TextSpan(text: '${debts.dima / 100}'),
             ],
           ),
         ),
@@ -44,7 +44,7 @@ class DebtsList extends StatelessWidget {
             style: TextStyle(fontSize: 20, color: Colors.black),
             children: [
               TextSpan(text: 'Trong: '),
-              TextSpan(text: debts.trong.toString()),
+              TextSpan(text: '${debts.trong / 100}'),
             ],
           ),
         ),
@@ -53,7 +53,7 @@ class DebtsList extends StatelessWidget {
             style: TextStyle(fontSize: 20, color: Colors.black),
             children: [
               TextSpan(text: 'Tham: '),
-              TextSpan(text: debts.tham.toString()),
+              TextSpan(text: '${debts.tham / 100}'),
             ],
           ),
         ),
