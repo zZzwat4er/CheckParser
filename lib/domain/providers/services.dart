@@ -18,13 +18,13 @@ import 'package:path_provider/path_provider.dart';
 import '../../data/models/check/server_check.dart';
 import '../../data/models/debts/debts.dart';
 import '../../data/models/ip/ip.dart';
+import '../../data/repository/local_check_repository.dart';
 import '../../data/repository/remote_check_repository.dart';
 import '../repository/checks_repository.dart';
 import '../router/router.dart' as app_router;
 
 class ServiceLocator {
   static late final Provider<app_router.Router> router;
-  static late final Provider<RemoteCheckRepository> checkRepository;
   static late final Provider<RemoteDebtRepository> debtRepository;
   static late final Provider<RemoteItemRepository> itemRepository;
   static late final Provider<DioRepository?> dioRepository;
@@ -104,17 +104,20 @@ class ServiceLocator {
   }
 
   static Future<void> _initCheck() async {
-    checkRepository =
-        Provider<RemoteCheckRepository>((ref) => RemoteCheckRepository(ref));
-
+    final box = await Hive.openBox<Map<dynamic, dynamic>>('checkBox');
     final check = await SharedCheckRepository().tryGet();
     checkState = StateNotifierProvider((ref) {
       return SharedCheckStateNotifier(check);
     });
     checkList = StateNotifierProvider((ref) {
       ref.watch(dioRepository);
-      return CheckListStateNotifier([], ref)
+      return CheckListStateNotifier(
+        [],
+        RemoteCheckRepository(ref),
+        LocalCheckRepository(box),
+      )
         ..clear()
+        ..tryMerge()
         ..fetch();
     });
   }

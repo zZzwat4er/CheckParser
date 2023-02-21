@@ -9,7 +9,7 @@ class _TimeOutInterseptor extends Interceptor {
   void onError(DioError err, ErrorInterceptorHandler handler) {
     if (err.type == DioErrorType.connectTimeout) {
       showSnackBar(ref, 'Responce timeout, try to change IP');
-      return handler.resolve(Response(requestOptions: err.requestOptions));
+      return handler.resolve(Response(requestOptions: err.requestOptions, data: null));
     }
     super.onError(err, handler);
   }
@@ -24,7 +24,7 @@ class _ServerErrorInterseptor extends Interceptor{
   void onError(DioError err, ErrorInterceptorHandler handler) {
     if (err.response?.statusCode == 500) {
       showSnackBar(ref, 'Programmer dolbaeb and something broken');
-      return handler.resolve(Response(requestOptions: err.requestOptions));
+      return handler.resolve(Response(requestOptions: err.requestOptions, data: null));
     }
     super.onError(err, handler);
   }
