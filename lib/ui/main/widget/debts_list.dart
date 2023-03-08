@@ -2,6 +2,9 @@ import 'package:check_parser/domain/extentions/int_extentions.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/models/debts/debts.dart';
+import '../../../data/models/users.dart';
+
+part 'debt_item.dart';
 
 class DebtsList extends StatelessWidget {
   final Debts debts;
@@ -11,53 +14,19 @@ class DebtsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        RichText(
-          text: TextSpan(
-            style: const TextStyle(fontSize: 20, color: Colors.black),
-            children: [
-              const TextSpan(text: 'Stepa: '),
-              TextSpan(text: debts.stepa.toRub),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            style: const TextStyle(fontSize: 20, color: Colors.black),
-            children: [
-              const TextSpan(text: 'Valentin: '),
-              TextSpan(text: debts.valentin.toRub),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            style: const TextStyle(fontSize: 20, color: Colors.black),
-            children: [
-              const TextSpan(text: 'Dima: '),
-              TextSpan(text: debts.dima.toRub),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            style: const TextStyle(fontSize: 20, color: Colors.black),
-            children: [
-              const TextSpan(text: 'Trong: '),
-              TextSpan(text: debts.trong.toRub),
-            ],
-          ),
-        ),
-        RichText(
-          text: TextSpan(
-            style: const TextStyle(fontSize: 20, color: Colors.black),
-            children: [
-              const TextSpan(text: 'Tham: '),
-              TextSpan(text: debts.tham.toRub),
-            ],
-          ),
-        ),
+        _DebtItem(user: Users.stepa, debt: debts.stepa),
+        const Divider(height: 10, thickness: 1),
+        _DebtItem(user: Users.valentin, debt: debts.valentin),
+        const Divider(height: 10, thickness: 1),
+        _DebtItem(user: Users.dima, debt: debts.dima),
+        const Divider(height: 10, thickness: 1),
+        _DebtItem(user: Users.tham, debt: debts.tham),
+        const Divider(height: 10, thickness: 1),
+        _DebtItem(user: Users.trong, debt: debts.trong),
+        const Spacer(),
+        if(!debts.defined) const Text('there are unsorted items'),
       ],
     );
   }

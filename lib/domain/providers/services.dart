@@ -102,6 +102,14 @@ class ServiceLocator {
     ),
   ];
 
+  static const mockDebts = Debts(
+      defined: true,
+      stepa: 11,
+      valentin: 12,
+      dima: 13,
+      trong: 14,
+      tham: 15);
+
   static Future<void> init() async {
     _initRouter();
     _initDio();
@@ -160,7 +168,7 @@ class ServiceLocator {
     debts = StateNotifierProvider((ref) {
       ref.watch(dioRepository);
       ref.watch(unsortedItem);
-      return DebtsStateNotifier(null, ref)..fetchDebts();
+      return DebtsStateNotifier(mockDebts, ref)..fetchDebts();
     });
   }
 

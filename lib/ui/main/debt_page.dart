@@ -16,12 +16,12 @@ class DebtPage extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (debts != null)
-            DebtsList(debts: debts)
-          else
-            Text('Something gose wrong'),
-          const Spacer(),
-          DebtButtons(),
+          Expanded(
+            child: debts != null
+                ? DebtsList(debts: debts)
+                : const Center(child: Text('Something gose wrong')),
+          ),
+          const DebtButtons(),
         ],
       ),
     );
