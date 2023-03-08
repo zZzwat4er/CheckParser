@@ -20,7 +20,7 @@ class _ItemTile extends StatelessWidget {
               ),
               if (item.price != null && item.quantity != null)
                 Text(
-                  '${item.price! / 100 }x${item.quantity}',
+                  '${item.price!.toRub}x${item.quantity}',
                   style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
             ],
@@ -28,7 +28,7 @@ class _ItemTile extends StatelessWidget {
         ),
         const SizedBox(width: 20),
         Text(
-          '${item.sum / 100}',
+          item.sum.toRub,
           style: const TextStyle(fontSize: 16, color: Colors.black),
         ),
       ],

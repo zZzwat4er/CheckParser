@@ -1,3 +1,4 @@
+import 'package:check_parser/domain/extentions/int_extentions.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/models/item/server_item.dart';
@@ -20,7 +21,7 @@ class ItemWidget extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          '${item.sum / 100}',
+          item.sum.toRub,
           style: const TextStyle(
             fontSize: 20,
             color: Colors.black,

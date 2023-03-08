@@ -1,4 +1,5 @@
 import 'package:check_parser/data/models/item/server_item.dart';
+import 'package:check_parser/domain/extentions/int_extentions.dart';
 import 'package:flutter/widgets.dart';
 
 class ItemList extends StatelessWidget {
@@ -18,7 +19,7 @@ class ItemList extends StatelessWidget {
         children: [
           Flexible(child: Text(items[index].name)),
           const SizedBox(width: 10),
-          Text('${items[index].sum / 100}'),
+          Text(items[index].sum.toRub),
         ],
       ),
     );

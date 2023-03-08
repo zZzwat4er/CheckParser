@@ -1,3 +1,4 @@
+import 'package:check_parser/domain/extentions/int_extentions.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/models/debts/debts.dart';
@@ -14,46 +15,46 @@ class DebtsList extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-            style: TextStyle(fontSize: 20, color: Colors.black),
+            style: const TextStyle(fontSize: 20, color: Colors.black),
             children: [
-              TextSpan(text: 'Stepa: '),
-              TextSpan(text: '${debts.stepa / 100}'),
+              const TextSpan(text: 'Stepa: '),
+              TextSpan(text: debts.stepa.toRub),
             ],
           ),
         ),
         RichText(
           text: TextSpan(
-            style: TextStyle(fontSize: 20, color: Colors.black),
+            style: const TextStyle(fontSize: 20, color: Colors.black),
             children: [
-              TextSpan(text: 'Valentin: '),
-              TextSpan(text: '${debts.valentin / 100}'),
+              const TextSpan(text: 'Valentin: '),
+              TextSpan(text: debts.valentin.toRub),
             ],
           ),
         ),
         RichText(
           text: TextSpan(
-            style: TextStyle(fontSize: 20, color: Colors.black),
+            style: const TextStyle(fontSize: 20, color: Colors.black),
             children: [
-              TextSpan(text: 'Dima: '),
-              TextSpan(text: '${debts.dima / 100}'),
+              const TextSpan(text: 'Dima: '),
+              TextSpan(text: debts.dima.toRub),
             ],
           ),
         ),
         RichText(
           text: TextSpan(
-            style: TextStyle(fontSize: 20, color: Colors.black),
+            style: const TextStyle(fontSize: 20, color: Colors.black),
             children: [
-              TextSpan(text: 'Trong: '),
-              TextSpan(text: '${debts.trong / 100}'),
+              const TextSpan(text: 'Trong: '),
+              TextSpan(text: debts.trong.toRub),
             ],
           ),
         ),
         RichText(
           text: TextSpan(
-            style: TextStyle(fontSize: 20, color: Colors.black),
+            style: const TextStyle(fontSize: 20, color: Colors.black),
             children: [
-              TextSpan(text: 'Tham: '),
-              TextSpan(text: '${debts.tham / 100}'),
+              const TextSpan(text: 'Tham: '),
+              TextSpan(text: debts.tham.toRub),
             ],
           ),
         ),
