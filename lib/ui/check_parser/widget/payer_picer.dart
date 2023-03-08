@@ -1,8 +1,7 @@
+import 'package:check_parser/ui/widgets/user_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/models/users.dart';
-
-part 'name_tile.dart';
 
 class PayerPicker extends StatefulWidget {
   final void Function(Users) onChanged;
@@ -25,20 +24,21 @@ class _PayerPickerState extends State<PayerPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: _names.length,
-      itemBuilder: (context, index) => _NameTile(
-        name: _names[index],
+      itemBuilder: (context, index) => UserButton(
+        user: _names[index],
         onChanged: (value) {
           setState(() {
             currentUser = _names[index];
           });
           widget.onChanged(_names[index]);
         },
-        value: currentUser == _names[index],
+        isActive: currentUser == _names[index],
       ),
+      separatorBuilder: (context, index) => const Divider(),
     );
   }
 }

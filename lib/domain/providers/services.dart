@@ -41,6 +41,46 @@ class ServiceLocator {
   static final Provider<GlobalKey<ScaffoldMessengerState>> massangerKey =
       Provider((ref) => GlobalKey<ScaffoldMessengerState>());
 
+  static const mockCheck = {
+    "user": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"ТАТВЕНД\"",
+    "retailPlaceAddress": "Иннополис, Университетская ул., д.1к.1",
+    "userInn": "7731373963  ",
+    "requestNumber": 704,
+    "shiftNumber": 158,
+    "operationType": 1,
+    "totalSum": 3000,
+    "cashTotalSum": 0,
+    "ecashTotalSum": 3000,
+    "kktRegId": "0004993352021138    ",
+    "fiscalDriveNumber": "9961440300965403",
+    "fiscalDocumentNumber": 153832,
+    "fiscalSign": 2693375555,
+    "items": [
+      {
+        "name": "Сухарики",
+        "price": 3000,
+        "sum": 3000,
+        "quantity": 1.0,
+        "paymentType": 4,
+        "nds": 6,
+        "ndsSum": 0
+      }
+    ],
+    "ndsNo": 3000,
+    "code": 3,
+    "fiscalDocumentFormatVer": 2,
+    "machineNumber": "I15203226",
+    "retailPlace": "1 корп.,1эт.",
+    "buyerPhoneOrAddress": "stepan14511@gmail.com",
+    "prepaidSum": 0,
+    "creditSum": 0,
+    "provisionSum": 0,
+    "sellerAddress": "noreply@uvenco.ru",
+    "dateTime": 1675535220,
+    "taxationType": 4,
+    "localDateTime": "2023-02-04T21:27"
+  };
+
   static Future<void> init() async {
     _initRouter();
     _initDio();
@@ -105,7 +145,8 @@ class ServiceLocator {
 
   static Future<void> _initCheck() async {
     final box = await Hive.openBox<Map<dynamic, dynamic>>('checkBox');
-    final check = await SharedCheckRepository().tryGet();
+    // final check = await SharedCheckRepository().tryGet();
+    final check = Check.fromJson(mockCheck);
     checkState = StateNotifierProvider((ref) {
       return SharedCheckStateNotifier(check);
     });
