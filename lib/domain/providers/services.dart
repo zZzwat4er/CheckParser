@@ -18,6 +18,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../data/models/check/server_check.dart';
 import '../../data/models/debts/debts.dart';
 import '../../data/models/ip/ip.dart';
+import '../../data/models/users.dart';
 import '../../data/repository/local_check_repository.dart';
 import '../../data/repository/remote_check_repository.dart';
 import '../repository/checks_repository.dart';
@@ -80,6 +81,26 @@ class ServiceLocator {
     "taxationType": 4,
     "localDateTime": "2023-02-04T21:27"
   };
+
+  static const mockCheckList = [
+    ServerCheck(
+      shopName: 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"ТАТВЕНД\"',
+      dateTime: 1675535220,
+      items: [
+        ServerItem(
+          name: 'Сухарики',
+          sum: 3000,
+          paidBy: Users.valentin,
+        ),
+        ServerItem(
+          name: 'Сухарики',
+          sum: 3000,
+          paidBy: Users.valentin,
+        ),
+      ],
+      fnfd: 'fnfd',
+    ),
+  ];
 
   static Future<void> init() async {
     _initRouter();
@@ -145,19 +166,19 @@ class ServiceLocator {
 
   static Future<void> _initCheck() async {
     final box = await Hive.openBox<Map<dynamic, dynamic>>('checkBox');
-    // final check = await SharedCheckRepository().tryGet();
-    final check = Check.fromJson(mockCheck);
+    final check = await SharedCheckRepository().tryGet();
+    // final check = Check.fromJson(mockCheck);
     checkState = StateNotifierProvider((ref) {
       return SharedCheckStateNotifier(check);
     });
     checkList = StateNotifierProvider((ref) {
       ref.watch(dioRepository);
       return CheckListStateNotifier(
-        [],
+        mockCheckList,
         RemoteCheckRepository(ref),
         LocalCheckRepository(box),
       )
-        ..clear()
+        // ..clear()
         ..tryMerge()
         ..fetch();
     });

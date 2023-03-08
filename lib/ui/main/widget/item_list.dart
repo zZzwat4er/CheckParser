@@ -1,5 +1,6 @@
 import 'package:check_parser/data/models/item/server_item.dart';
 import 'package:check_parser/domain/extentions/int_extentions.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ItemList extends StatelessWidget {
@@ -9,7 +10,7 @@ class ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       itemCount: items.length,
       shrinkWrap: true,
@@ -21,6 +22,10 @@ class ItemList extends StatelessWidget {
           const SizedBox(width: 10),
           Text(items[index].sum.toRub),
         ],
+      ),
+      separatorBuilder: (context, index) => const Divider(
+        height: 5,
+        thickness: 1,
       ),
     );
   }
