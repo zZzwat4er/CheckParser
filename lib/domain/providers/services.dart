@@ -103,12 +103,19 @@ class ServiceLocator {
   ];
 
   static const mockDebts = Debts(
-      defined: true,
-      stepa: 11,
-      valentin: 12,
-      dima: 13,
-      trong: 14,
-      tham: 15);
+    defined: true,
+    stepa: 11,
+    valentin: 12,
+    dima: 13,
+    trong: 14,
+    tham: 15,
+  );
+
+  static const mockItem = ServerItem(
+    name: 'Сухарики',
+    sum: 3000,
+    paidBy: Users.valentin,
+  );
 
   static Future<void> init() async {
     _initRouter();
@@ -159,7 +166,7 @@ class ServiceLocator {
     itemRepository = Provider((ref) => RemoteItemRepository(ref));
 
     unsortedItem = StateNotifierProvider(
-        (ref) => UnsortedItemStateNotifier(null, ref)..fetch());
+        (ref) => UnsortedItemStateNotifier(mockItem, ref)..fetch());
   }
 
   static Future<void> _initDebts() async {

@@ -1,3 +1,4 @@
+import 'package:check_parser/ui/widgets/user_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/models/users.dart';
@@ -35,21 +36,20 @@ class _PayerPickerState extends State<PayerPicker> {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: _names.length,
-      itemBuilder: (context, index) => _NameTile(
-        name: _names[index],
+      itemBuilder: (context, index) => UserButton(
+        isMultiChoise: true,
         onChanged: (value) {
           setState(() {
-            if(value != null && value){
+            if (value != null && value) {
               currentUsers.add(_names[index]);
-            }
-            else{
+            } else {
               currentUsers.remove(_names[index]);
             }
-            
           });
           widget.onChanged(currentUsers);
         },
-        value: currentUsers.contains(_names[index]),
+        isActive: currentUsers.contains(_names[index]),
+        user: _names[index],
       ),
     );
   }

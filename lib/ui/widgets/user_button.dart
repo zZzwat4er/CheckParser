@@ -1,4 +1,5 @@
 import 'package:check_parser/data/models/users.dart';
+import 'package:check_parser/ui/widgets/checkbox.dart';
 import 'package:check_parser/ui/widgets/round_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,11 +10,13 @@ class UserButton extends StatefulWidget {
   final bool isActive;
   final Users user;
   final void Function(bool value) onChanged;
+  final bool isMultiChoise;
   const UserButton({
     super.key,
     required this.isActive,
     required this.user,
     required this.onChanged,
+    this.isMultiChoise = false,
     this.duration = const Duration(milliseconds: 500),
     this.curve = Curves.easeInOut,
   });
@@ -24,7 +27,6 @@ class UserButton extends StatefulWidget {
 
 class _UserButtonState extends State<UserButton> {
   late bool isActive;
-
   @override
   void initState() {
     isActive = widget.isActive;
@@ -44,10 +46,17 @@ class _UserButtonState extends State<UserButton> {
     return InkWell(
       onTap: () {
         HapticFeedback.lightImpact();
-        widget.onChanged(true);
-        setState(() {
-          isActive = true;
-        });
+        if (widget.isMultiChoise) {
+          widget.onChanged(!isActive);
+          setState(() {
+            isActive = !isActive;
+          });
+        } else {
+          widget.onChanged(true);
+          setState(() {
+            isActive = true;
+          });
+        }
       },
       child: AnimatedContainer(
         duration: widget.duration,
@@ -57,9 +66,10 @@ class _UserButtonState extends State<UserButton> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            RoundCheckbox(
-              isActive: isActive,
-            ),
+            if (widget.isMultiChoise)
+              AppCheckbox(isActive: isActive)
+            else
+              RoundCheckbox(isActive: isActive),
             const Spacer(),
             Padding(
               padding: EdgeInsets.all(8.0),

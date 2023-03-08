@@ -12,26 +12,31 @@ class ItemWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          item.name,
-          style: const TextStyle(
-            fontSize: 20,
-            color: Colors.black,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          item.sum.toRub,
-          style: const TextStyle(
-            fontSize: 20,
-            color: Colors.black,
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                item.name,
+                style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              item.sum.toRub,
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: 8),
         Text(
           item.paidBy.toString(),
           style: const TextStyle(
-            fontSize: 20,
             color: Colors.black,
           ),
         ),
