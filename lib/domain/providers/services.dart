@@ -166,7 +166,7 @@ class ServiceLocator {
     itemRepository = Provider((ref) => RemoteItemRepository(ref));
 
     unsortedItem = StateNotifierProvider(
-        (ref) => UnsortedItemStateNotifier(mockItem, ref)..fetch());
+        (ref) => UnsortedItemStateNotifier(null, ref)..fetch());
   }
 
   static Future<void> _initDebts() async {
@@ -175,7 +175,7 @@ class ServiceLocator {
     debts = StateNotifierProvider((ref) {
       ref.watch(dioRepository);
       ref.watch(unsortedItem);
-      return DebtsStateNotifier(mockDebts, ref)..fetchDebts();
+      return DebtsStateNotifier(null, ref)..fetchDebts();
     });
   }
 
@@ -189,7 +189,7 @@ class ServiceLocator {
     checkList = StateNotifierProvider((ref) {
       ref.watch(dioRepository);
       return CheckListStateNotifier(
-        mockCheckList,
+        [],
         RemoteCheckRepository(ref),
         LocalCheckRepository(box),
       )
